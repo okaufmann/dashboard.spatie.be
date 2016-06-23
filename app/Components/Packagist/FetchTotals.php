@@ -34,7 +34,8 @@ class FetchTotals extends Command
 
         $packagist = new Packagist($client);
 
-        $totals = collect($packagist->getPackagesByVendor('okaufmann')['packageNames'])
+        $user = config('packagist.user');
+        $totals = collect($packagist->getPackagesByVendor($user)['packageNames'])
                 ->map(function ($packageName) use ($packagist) {
                     return $packagist->findPackageByName($packageName)['package'];
                 })

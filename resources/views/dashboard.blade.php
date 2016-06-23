@@ -2,7 +2,7 @@
 
 @section('content')
 
-    @javascript(compact('pusherKey'))
+    @javascript(compact('pusherKey', 'pusherCluster','pusherEncrypted'))
 
     <google-calendar grid="a1:a2"></google-calendar>
 
