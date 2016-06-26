@@ -1,0 +1,76 @@
+import Grid from './grid';
+import moment from 'moment';
+import _ from 'lodash';
+import Pusher from '../mixins/pusher';
+import SaveState from '../mixins/save-state';
+
+export default {
+
+    template: `
+        <grid :position="grid" modifiers="overflow padded blue">
+                <section class="uptime-robot">
+                    <h1>Uptime Monitor</h1>
+                    <p>Total: {{allTimeUptimeRatio}}%</p>
+                    <p>Up/Down: {{monitorsUp}}/{{monitorsDown}}</p>
+                    <ul class="uptime-robot__downMonitors">
+                        <li v-for="monitor in monitorsDownData"  class="uptime-robot__downMonitor">
+                            <h2 class="uptime-robot__downMonitor__title">{{ monitor.name }}</h2>
+                            <div class="uptime-robot__downMonitor__since">{{ monitor.downSince | relative-date-minutes }} - {{monitor.allTimeUpTimeRatio}}%</div>
+                        </li>
+                    </ul>
+                </section>
+             </grid>
+    `,
+
+    components: {
+        Grid,
+    },
+
+    mixins: [Pusher, SaveState],
+
+    props: {
+        dateformat: {
+            type: String,
+            default: 'DD-MM-YYYY',
+        },
+        timeformat: {
+            type: String,
+            default: 'HH:mm:ss',
+        },
+        grid: {
+            type: String,
+        },
+    },
+
+    data() {
+        return {
+            allTimeUptimeRatio: 0,
+            monitorsUp: 0,
+            monitorsDown: 0,
+            monitorsDownData: [],
+        };
+    },
+
+    created() {
+    },
+
+    methods: {
+        getEventHandlers() {
+            return {
+                'App\\Components\\UptimeRobot\\Events\\MonitorsFetched': response => {
+                    this.allTimeUptimeRatio = _.round(response.allTimeUptimeRatio, 3);
+                    this.monitorsUp = response.monitorsUp;
+                    this.monitorsDown = response.monitorsDown;
+                    this.monitorsDownData = response.monitorsDownData;
+                },
+            };
+        },
+
+        getSavedStateId() {
+            return 'uptime-robot';
+        },
+    },
+};
+
+
+

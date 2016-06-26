@@ -4,7 +4,7 @@
 
     @javascript(compact('pusherKey', 'pusherCluster','pusherEncrypted'))
 
-    <google-calendar grid="a1:a2"></google-calendar>
+    <uptime-robot grid="a1:a2"></uptime-robot>
 
     <last-fm grid="b1:c1"></last-fm>
 
