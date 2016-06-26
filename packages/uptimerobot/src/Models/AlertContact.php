@@ -19,6 +19,18 @@ class AlertContact extends AbstractModel
     private $id;
 
     /**
+     * The type of the alert contact notified (Zapier, HipChat and Slack are not supported in the newAlertContact method yet).
+     * 1 - SMS
+     * 2 - E-mail
+     * 3 - Twitter DM
+     * 4 - Boxcar
+     * 5 - Web-Hook
+     * 6 - Pushbullet
+     * 7 - Zapier
+     * 9 - Pushover
+     * 10 - HipChat
+     * 11 - Slack
+     *
      * @var string
      */
     private $type;
@@ -27,6 +39,33 @@ class AlertContact extends AbstractModel
      * @var string
      */
     private $value;
+
+    /**
+     * Friendly name of the alert contact (for making it easier to distinguish from others).
+     *
+     * @var string
+     */
+    private $friendlyName;
+
+    /**
+     * The status of the alert contact.
+     * 0 - not activated
+     * 1 - paused
+     * 2 - active
+     *
+     * @var int
+     */
+    private $status;
+
+    /**
+     * @var int
+     */
+    private $threshold;
+
+    /**
+     * @var int
+     */
+    private $recurrence;
 
     /**
      * @return int
@@ -77,16 +116,6 @@ class AlertContact extends AbstractModel
     }
 
     /**
-     * @var int
-     */
-    private $threshold;
-
-    /**
-     * @var int
-     */
-    private $recurrence;
-
-    /**
      * @return string
      */
     public function getType()
@@ -100,6 +129,38 @@ class AlertContact extends AbstractModel
     public function setType($type)
     {
         $this->type = $type;
+    }
+
+    /**
+     * @return string
+     */
+    public function getFriendlyName()
+    {
+        return $this->friendlyName;
+    }
+
+    /**
+     * @param string $friendlyName
+     */
+    public function setFriendlyName($friendlyName)
+    {
+        $this->friendlyName = $friendlyName;
+    }
+
+    /**
+     * @return int
+     */
+    public function getStatus()
+    {
+        return $this->status;
+    }
+
+    /**
+     * @param int $status
+     */
+    public function setStatus($status)
+    {
+        $this->status = $status;
     }
 
     /**

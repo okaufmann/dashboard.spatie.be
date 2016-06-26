@@ -12,6 +12,8 @@
 namespace Okaufmann\UptimeRobot\Models;
 
 
+use Illuminate\Support\Collection;
+
 class Monitor extends AbstractModel
 {
     /**
@@ -30,12 +32,28 @@ class Monitor extends AbstractModel
     private $url;
 
     /**
-     * @var string
+     * The type of the monitor.
+     *
+     * 1 - HTTP(s)
+     * 2 - Keyword
+     * 3 - Ping
+     * 4 - Port
+     *
+     * @var integer
      */
     private $type;
 
     /**
-     * @var string
+     *
+     * 1 - HTTP (80)
+     * 2 - HTTPS (443)
+     * 3 - FTP (21)
+     * 4 - SMTP (25)
+     * 5 - POP3 (110)
+     * 6 - IMAP (143)
+     * 99 - Custom Port
+     *
+     * @var integer
      */
     private $subType;
 
@@ -70,6 +88,13 @@ class Monitor extends AbstractModel
     private $interval;
 
     /**
+     * The status of the monitor. When used with the editMonitor method 0 (to pause) or 1 (to start) can be sent.
+     * 0 - paused
+     * 1 - not checked yet
+     * 2 - up
+     * 8 - seems down
+     * 9 - down
+     *
      * @var string
      */
     private $status;
@@ -340,7 +365,7 @@ class Monitor extends AbstractModel
     }
 
     /**
-     * @return array
+     * @return Collection
      */
     public function getLogs()
     {
@@ -356,7 +381,7 @@ class Monitor extends AbstractModel
     }
 
     /**
-     * @return array
+     * @return Collection
      */
     public function getResponseTimes()
     {

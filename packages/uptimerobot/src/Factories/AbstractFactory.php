@@ -49,7 +49,11 @@ abstract class AbstractFactory
                     $value = (new $factory['factory'])->create($value, $factory['type']);
                 } else {
                     if (is_numeric($value)) {
-                        $value = intval($value);
+                        if (str_contains($value, ".")) {
+                            $value = floatval($value);
+                        }else{
+                            $value = intval($value);
+                        }
                     }
                 }
 

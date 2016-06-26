@@ -17,6 +17,13 @@ use Carbon\Carbon;
 class Log extends AbstractModel
 {
     /**
+     * Type of the logged event
+     *
+     * 1 - down
+     * 2 - up
+     * 99 - paused
+     * 98 - started
+     *
      * @var string
      */
     private $type;

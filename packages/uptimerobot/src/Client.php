@@ -18,6 +18,7 @@ use Log;
 use Okaufmann\UptimeRobot\Exceptions\ArgumentNullException;
 use Okaufmann\UptimeRobot\Exceptions\NotSupportedException;
 use Okaufmann\UptimeRobot\Factories\MonitorCollectionFactory;
+use Okaufmann\UptimeRobot\Models\Collections\ResultCollection;
 
 class Client
 {
@@ -138,7 +139,7 @@ class Client
      * @param bool      $showTimezone optional    Defines if the user's timezone should be returned
      * @param string    $search optional    a keyword of your choice to search within monitorURL and monitorFriendlyName and get filtered results
      *
-     * @return Collection
+     * @return ResultCollection
      */
     public function getMonitors(
         $monitors = null,
