@@ -1,0 +1,80 @@
+<?php
+/**
+ * UptimeRobot.php, dashboard
+ *
+ * This File belongs to to Project dashboard
+ *
+ * @author Oliver Kaufmann <okaufmann91@gmail.com>
+ * @version 1.0
+ * @package YOUREOACKAGE
+ */
+
+namespace App\Components\UptimeRobot;
+
+
+use App\Components\UptimeRobot\Events\MonitorsFetched;
+use Illuminate\Console\Command;
+use Okaufmann\UptimeRobot\Client;
+use App;
+use Okaufmann\UptimeRobot\Models\Log;
+use Okaufmann\UptimeRobot\Models\Monitor;
+
+class FetchMonitors extends Command
+{
+    /**
+     * The console command name.
+     *
+     * @var string
+     */
+    protected $signature = 'dashboard:uptimerobot';
+
+    /**
+     * The console command description.
+     *
+     * @var string
+     */
+    protected $description = 'Fetch monitor status.';
+
+    /**
+     * Execute the console command.
+     *
+     * @return mixed
+     */
+    public function handle()
+    {
+        /** @var Client $client */
+        $client = App::make('uptimerobot.client');
+
+        $monitors = $client->getMonitors(null, null, true, false, true, true, true);
+
+        $allTimeUptimeRatio = $monitors->getMonitors()->map(function (Monitor $monitor) {
+            return [
+                'allTimeUpTimeRatio' => $monitor->getAllTimeUpTimeRatio()
+            ];
+        })->avg('allTimeUpTimeRatio');
+
+        $upMonitorsCount = $monitors->getMonitors()->filter(function (Monitor $monitor) {
+            return $monitor->getStatus() == 2;
+        })->count();
+
+        $downMonitors = $monitors->getMonitors()->filter(function (Monitor $monitor) {
+            return $monitor->getStatus() == 9;
+        });
+
+        $downMonitorsData = $downMonitors->map(function (Monitor $monitor) {
+            $downSince = $monitor->getLogs()->filter(function (Log $log) {
+                return $log->getType() == 1;
+            })->first();
+
+            return [
+                'name'               => $monitor->getFriendlyName(),
+                'url'                => $monitor->getUrl(),
+                'id'                 => $monitor->getId(),
+                'allTimeUpTimeRatio' => $monitor->getAllTimeUpTimeRatio(),
+                'downSince'          => $downSince->getDatetime()->toIso8601String()
+            ];
+        })->values()->all();
+
+        event(new MonitorsFetched($allTimeUptimeRatio, $upMonitorsCount, $downMonitors->count(), $downMonitorsData));
+    }
+}
