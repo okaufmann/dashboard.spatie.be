@@ -41,4 +41,16 @@ const relativeDate = value => {
     return _.upperFirst(date.fromNow());
 };
 
-export { formatNumber, gridFromTo, modifyClass, relativeDate };
+const relativeDateMinutes = value => {
+    let date = moment(value);
+
+    let diffInDays = date.diff(moment(), 'days');
+
+    if (diffInDays < 7) {
+        return date.calendar();
+    }
+
+    return date.fromNow();
+};
+
+export { formatNumber, gridFromTo, modifyClass, relativeDate, relativeDateMinutes };
