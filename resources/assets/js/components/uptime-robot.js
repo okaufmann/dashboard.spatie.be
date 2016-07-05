@@ -3,6 +3,7 @@ import moment from 'moment';
 import _ from 'lodash';
 import Pusher from '../mixins/pusher';
 import SaveState from '../mixins/save-state';
+import Doughnut from './doughnut';
 
 export default {
 
@@ -10,8 +11,16 @@ export default {
         <grid :position="grid" modifiers="overflow padded blue">
                 <section class="uptime-robot">
                     <h1>Uptime Monitor</h1>
-                    <p>Total: {{allTimeUptimeRatio}}%</p>
-                    <p>Up/Down: {{monitorsUp}}/{{monitorsDown}}</p>
+                    <p class="text-center">Total: {{allTimeUptimeRatio}}%</p>
+                    <p>&nbsp;</p>
+                    <div class="doughnut">
+                    <doughnut
+                        :labels="doughnutLabels"
+                        :values="doughnutData" ></doughnut>
+                    <div class="donut-inner">
+                        <h5>{{monitorsUp}}-{{monitorsDown}}</h5>
+                    </div>
+                    </div>
                     <ul class="uptime-robot__downMonitors">
                         <li v-for="monitor in monitorsDownData"  class="uptime-robot__downMonitor">
                             <h2 class="uptime-robot__downMonitor__title">{{ monitor.name }}</h2>
@@ -23,7 +32,7 @@ export default {
     `,
 
     components: {
-        Grid,
+        Grid, Doughnut
     },
 
     mixins: [Pusher, SaveState],
@@ -39,6 +48,16 @@ export default {
         },
         grid: {
             type: String,
+        },
+    },
+
+    computed: {
+        doughnutLabels() {
+            return ["Up", "Down"];
+        },
+
+        doughnutData() {
+            return [this.monitorsUp, this.monitorsDown];
         },
     },
 

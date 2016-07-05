@@ -1,0 +1,26 @@
+.uptime-robot {
+
+  text-align:center;
+
+  .doughnut {
+    width: 60%;
+    height: 60%;
+    display: table-cell;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  .donut-inner{
+    width: 50%;
+    display: inline-block;
+
+  }
+
+  .donut-inner h5 {
+    margin-bottom: 5px;
+    margin-top: 0;
+  }
+  .donut-inner span {
+    font-size: 12px;
+  }
+}
