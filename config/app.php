@@ -156,6 +156,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Tail\TailServiceProvider::class,
+        // cause problems with emphaty browser on raspberry pi one Model B
         //Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider::class,
         Spatie\GoogleCalendar\GoogleCalendarServiceProvider::class,
         GrahamCampbell\GitHub\GitHubServiceProvider::class,
