@@ -297,10 +297,18 @@ li {
     transform: scale(1); } }
 
 .last-fm__content {
+  -ms-flex-line-pack: center;
+  align-content: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -ms-flexbox;
+  display: flex;
+  height: 100%;
+  -ms-flex-pack: center;
+  justify-content: center;
   position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  text-align: center;
+  right: 0;
+  top: 0;
   width: 100%;
   z-index: 2; }
 
@@ -309,34 +317,24 @@ li {
   background-size: cover;
   border-radius: .25vw;
   box-shadow: 0 1px 10px rgba(0, 0, 0, 0.25);
-  display: inline-block;
-  height: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
   margin: 1vw;
-  padding-bottom: 30%;
-  vertical-align: middle;
-  width: 30%; }
+  padding-bottom: 25%;
+  width: 25%; }
 
 .last-fm__text {
-  display: inline-block;
   margin: 1vw;
   max-width: 90%;
-  text-align: left;
-  transition: width .5s linear;
-  vertical-align: middle; }
+  transition: width .5s linear; }
 
 .last-fm___artist {
   font-family: 'Source Sans Pro', sans-serif;
   font-style: normal;
   font-weight: 900;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   font-size: 1.1em; }
 
 .last-fm__track {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
   font-size: 0.8em; }
 
 .last-fm__user {
@@ -346,6 +344,7 @@ li {
   font-size: 0.8em;
   margin-top: 1em;
   padding: .25em .5em;
+  white-space: nowrap;
   z-index: 3; }
   .last-fm__user:before {
     background-image: url("/svg/music.svg");
