@@ -47,6 +47,7 @@ class FetchMonitors extends Command
         $client = App::make('uptimerobot.client');
 
         $query = new MonitorsQuery();
+        $query->statuses = [2,9];
         $query->logs = true;
         $query->responseTimesAverage = true;
         $query->alertContacts = true;

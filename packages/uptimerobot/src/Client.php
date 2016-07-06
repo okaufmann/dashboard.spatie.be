@@ -142,17 +142,27 @@ class Client
      *
      * @return ResultCollection
      */
-    public function getMonitors(MonitorsQuery $query) {
+    public function getMonitors(MonitorsQuery $query)
+    {
         $queryParams = [
+            'monitors'                 => $this->getImplode($query->monitors),
+            'types'                    => $this->getImplode($query->types),
+            'statuses'                 => $this->getImplode($query->statuses),
+            'customUptimeRatio'        => $this->getImplode($query->customUptimeRatio),
             'logs'                     => $query->logs,
+            'logsLimit'                => $query->logsLimit,
             'responseTimes'            => $query->responseTimes,
+            'responseTimesLimit'       => $query->responseTimesLimit,
             'responseTimesAverage'     => $query->responseTimesAverage,
+            'responseTimesStartDate'   => $query->responseTimesStartDate,
+            'responseTimesEndDate'     => $query->responseTimesEndDate,
             'alertContacts'            => $query->alertContacts,
             'showMonitorAlertContacts' => $query->showMonitorAlertContacts,
             'showTimezone'             => $query->showTimezone,
-            'monitors'                 => $this->getImplode($query->monitors),
-            'customUptimeRatio'        => $this->getImplode($query->customUptimeRatio),
-            'search'                   => $query->search ? htmlspecialchars($query->search) : null
+            'offset'                   => $query->offset,
+            'limit'                    => $query->limit,
+            'search'                   => $query->search ? htmlspecialchars($query->search) : null,
+
         ];
 
         $result = $this->__fetch('getMonitors', $queryParams);
