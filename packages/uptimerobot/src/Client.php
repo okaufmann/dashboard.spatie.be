@@ -151,7 +151,7 @@ class Client
             'showMonitorAlertContacts' => $query->showMonitorAlertContacts,
             'showTimezone'             => $query->showTimezone,
             'monitors'                 => $this->getImplode($query->monitors),
-            'customUptimeRatio'        => $this->getImplode($query->customUpTimeRatio),
+            'customUptimeRatio'        => $this->getImplode($query->customUptimeRatio),
             'search'                   => $query->search ? htmlspecialchars($query->search) : null
         ];
 
