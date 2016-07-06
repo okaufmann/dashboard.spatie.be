@@ -18,6 +18,7 @@ use Okaufmann\UptimeRobot\Client;
 use App;
 use Okaufmann\UptimeRobot\Models\Log;
 use Okaufmann\UptimeRobot\Models\Monitor;
+use Okaufmann\UptimeRobot\Models\Queries\MonitorsQuery;
 
 class FetchMonitors extends Command
 {
@@ -45,7 +46,13 @@ class FetchMonitors extends Command
         /** @var Client $client */
         $client = App::make('uptimerobot.client');
 
-        $monitors = $client->getMonitors(null, null, true, false, true, true, true);
+        $query = new MonitorsQuery();
+        $query->logs = true;
+        $query->responseTimesAverage = true;
+        $query->alertContacts = true;
+        $query->showMonitorAlertContacts = true;
+
+        $monitors = $client->getMonitors($query);
 
         $allTimeUptimeRatio = $monitors->getMonitors()->map(function (Monitor $monitor) {
             return [

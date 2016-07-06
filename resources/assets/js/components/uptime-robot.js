@@ -12,14 +12,11 @@ export default {
                 <section class="uptime-robot">
                     <h1>Uptime Monitor</h1>
                     <p class="text-center">Total: {{allTimeUptimeRatio}}%</p>
-                    <p>&nbsp;</p>
                     <div class="doughnut">
-                    <doughnut
-                        :labels="doughnutLabels"
-                        :values="doughnutData" ></doughnut>
-                    <div class="donut-inner">
-                        <h5>{{monitorsUp}}-{{monitorsDown}}</h5>
-                    </div>
+                        <doughnut
+                            :labels="doughnutLabels"
+                            :values="doughnutData" ></doughnut>
+                        <div class="donut-inner"><h5>{{monitorsUp}}-{{monitorsDown}}</h5></div>
                     </div>
                     <ul class="uptime-robot__downMonitors">
                         <li v-for="monitor in monitorsDownData"  class="uptime-robot__downMonitor">

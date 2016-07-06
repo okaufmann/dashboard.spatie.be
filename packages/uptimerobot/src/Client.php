@@ -19,6 +19,7 @@ use Okaufmann\UptimeRobot\Exceptions\ArgumentNullException;
 use Okaufmann\UptimeRobot\Exceptions\NotSupportedException;
 use Okaufmann\UptimeRobot\Factories\MonitorCollectionFactory;
 use Okaufmann\UptimeRobot\Models\Collections\ResultCollection;
+use Okaufmann\UptimeRobot\Models\Queries\MonitorsQuery;
 
 class Client
 {
@@ -141,27 +142,17 @@ class Client
      *
      * @return ResultCollection
      */
-    public function getMonitors(
-        $monitors = null,
-        $customUpTimeRatio = null,
-        $logs = null,
-        $responseTimes = null,
-        $responseTimesAverage = null,
-        $alertContacts = null,
-        $showMonitorAlertContacts = null,
-        $showTimezone = null,
-        $search = null
-    ) {
+    public function getMonitors(MonitorsQuery $query) {
         $queryParams = [
-            'logs'                     => $logs,
-            'responseTimes'            => $responseTimes,
-            'responseTimesAverage'     => $responseTimesAverage,
-            'alertContacts'            => $alertContacts,
-            'showMonitorAlertContacts' => $showMonitorAlertContacts,
-            'showTimezone'             => $showTimezone,
-            'monitors'                 => $this->getImplode($monitors),
-            'customUptimeRatio'        => $this->getImplode($customUpTimeRatio),
-            'search'                   => $search ? htmlspecialchars($search) : null
+            'logs'                     => $query->logs,
+            'responseTimes'            => $query->responseTimes,
+            'responseTimesAverage'     => $query->responseTimesAverage,
+            'alertContacts'            => $query->alertContacts,
+            'showMonitorAlertContacts' => $query->showMonitorAlertContacts,
+            'showTimezone'             => $query->showTimezone,
+            'monitors'                 => $this->getImplode($query->monitors),
+            'customUptimeRatio'        => $this->getImplode($query->customUpTimeRatio),
+            'search'                   => $query->search ? htmlspecialchars($query->search) : null
         ];
 
         $result = $this->__fetch('getMonitors', $queryParams);
