@@ -151,8 +151,12 @@ class Client
      *
      * @return ResultCollection
      */
-    public function getMonitors(MonitorsQuery $query)
+    public function getMonitors(MonitorsQuery $query = null)
     {
+        if(!$query){
+            $query = new MonitorsQuery();
+        }
+
         $queryParams = [
             'monitors'                 => $this->getImplode($query->monitors),
             'types'                    => $this->getImplode($query->types),

@@ -46,7 +46,18 @@ class FetchMonitors extends Command
         /** @var Client $client */
         $client = App::make('uptimerobot.client');
 
+        $monitors = $client->getMonitors();
+
+        //1. get all monitors
+
+        $monitorIds = $monitors->getMonitors()->map(function(Monitor $monitor){
+            return $monitor->getId();
+        })->all();
+
+        //2. get all monitors by its it (otherwise they are cached and not live!)
+
         $query = new MonitorsQuery();
+        $query->monitors = $monitorIds;
         $query->statuses = [2,9];
         $query->logs = true;
         $query->responseTimesAverage = true;
