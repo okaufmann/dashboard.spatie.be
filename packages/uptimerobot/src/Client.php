@@ -12,6 +12,7 @@
 
 namespace Okaufmann\UptimeRobot;
 
+use GuzzleHttp\TransferStats;
 use Illuminate\Config\Repository;
 use Illuminate\Support\Collection;
 use Log;
@@ -27,11 +28,16 @@ class Client
     private $apiKey;
     private $allowJsonCallback;
     private $format = "json";
+    /**
+     * @var \GuzzleHttp\Client
+     */
+    private $client;
 
     /**
      * Build Client
      *
-     * @param Repository $config
+     * @param Repository         $config
+     * @param \GuzzleHttp\Client $client
      */
     public function __construct(Repository $config)
     {
@@ -39,6 +45,9 @@ class Client
         $this->apiKey = $config->get('uptimerobot.key');
         $this->allowJsonCallback = $config->get('uptimerobot.allow-json-callback');
         $this->format = $config->get('uptimerobot.format');
+        $this->client = new \GuzzleHttp\Client([
+            'base_uri' => $this->base_uri
+        ]);
     }
 
     /**
@@ -102,24 +111,24 @@ class Client
         $queryParams['format'] = $this->format;
         $queryParams['noJsonCallback'] = $this->allowJsonCallback ? 0 : 1;
 
-        $url = $this->base_uri . '/' . trim($url, '/') . '?' . http_build_query($queryParams);
+        $response = $this->client->get(trim($url, '/'), [
+            'query' => $queryParams,
+            'on_stats' => function (TransferStats $stats) use (&$url) {
+                $url = $stats->getEffectiveUri();
+            }
+        ]);
 
-        Log::debug('Fetch data from url: ' . $url);
+        Log::debug('Fetched data from url: ' . $url);
 
-        $ch = curl_init();
-        curl_setopt($ch, CURLOPT_URL, $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 10);
-        $file_contents = curl_exec($ch);
-        curl_close($ch);
+        $responseBody = (string) $response->getBody();
 
         if ($this->format == 'xml') {
-            return $file_contents;
+            return $responseBody;
         } else {
             if (! $this->allowJsonCallback) {
-                return $json ? json_decode($file_contents, true) : $file_contents;
+                return $json ? json_decode($responseBody, true) : $responseBody;
             } else {
-                return $file_contents;
+                return $responseBody;
             }
         }
 
