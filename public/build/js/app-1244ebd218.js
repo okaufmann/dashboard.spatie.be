@@ -45229,7 +45229,7 @@ require('../helpers/global-chart-options');
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = {
-    template: '\n    <canvas class="doughnut"></canvas>\n',
+    template: '\n    <canvas class="doughnut"></canvas>\n\n',
 
     props: {
         labels: {},
@@ -45242,29 +45242,41 @@ exports.default = {
         }
     },
 
+    watch: {
+        values: function values(value) {
+            console.log("Changed to ", value);
+            this.drawChart();
+        }
+    },
+
+    methods: {
+        drawChart: function drawChart() {
+            var data = {
+                labels: this.labels,
+
+                datasets: [{
+                    data: this.values,
+                    backgroundColor: ["green", "red"]
+
+                }]
+            };
+
+            var options = {
+                responsive: true,
+                maintainAspectRatio: false,
+                cutoutPercentage: 70
+            };
+
+            new _chart2.default(this.$el.getContext('2d'), {
+                type: 'doughnut',
+                data: data,
+                options: options
+            });
+        }
+    },
+
     ready: function ready() {
-
-        var data = {
-            labels: this.labels,
-
-            datasets: [{
-                data: this.values,
-                backgroundColor: ["green", "red"]
-
-            }]
-        };
-
-        var options = {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutoutPercentage: 70
-        };
-
-        new _chart2.default(this.$el.getContext('2d'), {
-            type: 'doughnut',
-            data: data,
-            options: options
-        });
+        this.drawChart();
     }
 };
 

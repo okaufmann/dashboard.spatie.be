@@ -69,6 +69,8 @@ class FetchMonitors extends Command
             return $monitor->getStatus() == 9;
         });
 
+        $downMonitorsCount = $downMonitors->count();
+
         $downMonitorsData = $downMonitors->map(function (Monitor $monitor) {
             $downSince = $monitor->getLogs()->filter(function (Log $log) {
                 return $log->getType() == 1;
@@ -83,6 +85,6 @@ class FetchMonitors extends Command
             ];
         })->values()->all();
 
-        event(new MonitorsFetched($allTimeUptimeRatio, $upMonitorsCount, $downMonitors->count(), $downMonitorsData));
+        event(new MonitorsFetched($allTimeUptimeRatio, $upMonitorsCount, $downMonitorsCount, $downMonitorsData));
     }
 }
