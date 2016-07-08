@@ -10,7 +10,7 @@ export default {
                 <section class="uptime-robot">
                     <h1>Qwertee</h1>
                     <img :src="detailUrl" class="img-fullheight">
-                    <img :src="mensUrl" class="img-fullheight">mensUrl
+                    <img :src="mensUrl" class="img-fullheight">
                 </section>
              </grid>
     `,

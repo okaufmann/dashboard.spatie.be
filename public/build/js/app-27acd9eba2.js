@@ -45708,7 +45708,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
 
-    template: '\n        <grid :position="grid" modifiers="overflow padded blue">\n                <section class="uptime-robot">\n                    <h1>Qwertee</h1>\n                    <img :src="detailUrl" class="img-fullheight">\n                    <img :src="mensUrl" class="img-fullheight">mensUrl\n                </section>\n             </grid>\n    ',
+    template: '\n        <grid :position="grid" modifiers="overflow padded blue">\n                <section class="uptime-robot">\n                    <h1>Qwertee</h1>\n                    <img :src="detailUrl" class="img-fullheight">\n                    <img :src="mensUrl" class="img-fullheight">\n                </section>\n             </grid>\n    ',
 
     components: {
         Grid: _grid2.default
