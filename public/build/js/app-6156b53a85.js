@@ -45119,6 +45119,10 @@ var _uptimeRobot = require('./components/uptime-robot');
 
 var _uptimeRobot2 = _interopRequireDefault(_uptimeRobot);
 
+var _qwertee = require('./components/qwertee');
+
+var _qwertee2 = _interopRequireDefault(_qwertee);
+
 var _vue = require('vue');
 
 var _vue2 = _interopRequireDefault(_vue);
@@ -45148,12 +45152,13 @@ new _vue2.default({
         LastFm: _lastFm2.default,
         PackagistStatistics: _packagistStatistics2.default,
         RainForecast: _rainForecast2.default,
-        UptimeRobot: _uptimeRobot2.default
+        UptimeRobot: _uptimeRobot2.default,
+        Qwertee: _qwertee2.default
     }
 
 });
 
-},{"./components/current-time":49,"./components/github-file":51,"./components/google-calendar":52,"./components/internet-connection":55,"./components/last-fm":56,"./components/packagist-statistics":57,"./components/rain-forecast":58,"./components/uptime-robot":59,"./helpers/vue-filters":63,"moment":44,"vue":47}],49:[function(require,module,exports){
+},{"./components/current-time":49,"./components/github-file":51,"./components/google-calendar":52,"./components/internet-connection":55,"./components/last-fm":56,"./components/packagist-statistics":57,"./components/qwertee":58,"./components/rain-forecast":59,"./components/uptime-robot":60,"./helpers/vue-filters":64,"moment":44,"vue":47}],49:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45280,7 +45285,7 @@ exports.default = {
     }
 };
 
-},{"../helpers/global-chart-options":60,"chart.js":1}],51:[function(require,module,exports){
+},{"../helpers/global-chart-options":61,"chart.js":1}],51:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45336,7 +45341,7 @@ exports.default = {
     }
 };
 
-},{"../mixins/pusher":64,"../mixins/save-state":65,"./grid":54}],52:[function(require,module,exports){
+},{"../mixins/pusher":65,"../mixins/save-state":66,"./grid":54}],52:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45392,7 +45397,7 @@ exports.default = {
     }
 };
 
-},{"../mixins/pusher":64,"../mixins/save-state":65,"./grid":54}],53:[function(require,module,exports){
+},{"../mixins/pusher":65,"../mixins/save-state":66,"./grid":54}],53:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45465,7 +45470,7 @@ exports.default = {
     }
 };
 
-},{"../helpers/global-chart-options":60,"chart.js":1}],54:[function(require,module,exports){
+},{"../helpers/global-chart-options":61,"chart.js":1}],54:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45540,7 +45545,7 @@ exports.default = {
     }
 };
 
-},{"../mixins/pusher":64,"./grid":54,"moment":44}],56:[function(require,module,exports){
+},{"../mixins/pusher":65,"./grid":54,"moment":44}],56:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45614,7 +45619,7 @@ exports.default = {
     }
 };
 
-},{"../mixins/pusher":64,"../mixins/save-state":65,"./grid":54}],57:[function(require,module,exports){
+},{"../mixins/pusher":65,"../mixins/save-state":66,"./grid":54}],57:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45676,7 +45681,74 @@ exports.default = {
     }
 };
 
-},{"../mixins/pusher":64,"../mixins/save-state":65,"./grid":54}],58:[function(require,module,exports){
+},{"../mixins/pusher":65,"../mixins/save-state":66,"./grid":54}],58:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _grid = require('./grid');
+
+var _grid2 = _interopRequireDefault(_grid);
+
+var _lodash = require('lodash');
+
+var _lodash2 = _interopRequireDefault(_lodash);
+
+var _pusher = require('../mixins/pusher');
+
+var _pusher2 = _interopRequireDefault(_pusher);
+
+var _saveState = require('../mixins/save-state');
+
+var _saveState2 = _interopRequireDefault(_saveState);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+
+    template: '\n        <grid :position="grid" modifiers="overflow padded blue">\n                <section class="uptime-robot">\n                    <h1>Qwertee</h1>\n                    <img :src="detailUrl" class="img-fullheight">\n                    <img :src="mensUrl" class="img-fullheight">mensUrl\n                </section>\n             </grid>\n    ',
+
+    components: {
+        Grid: _grid2.default
+    },
+
+    mixins: [_pusher2.default, _saveState2.default],
+
+    props: {
+        grid: {
+            type: String
+        }
+    },
+
+    data: function data() {
+        return {
+            detailUrl: null,
+            mensUrl: null
+        };
+    },
+    created: function created() {},
+
+
+    methods: {
+        getEventHandlers: function getEventHandlers() {
+            var _this = this;
+
+            return {
+                'App\\Components\\Qwertee\\Events\\ShirtsFetched': function AppComponentsQwerteeEventsShirtsFetched(response) {
+                    _this.detailUrl = response.detailUrl;
+                    _this.mensUrl = response.mensUrl;
+                }
+            };
+        },
+        getSavedStateId: function getSavedStateId() {
+            return 'qwertee';
+        }
+    }
+};
+
+},{"../mixins/pusher":65,"../mixins/save-state":66,"./grid":54,"lodash":43}],59:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45782,7 +45854,7 @@ exports.default = {
     }
 };
 
-},{"../mixins/pusher":64,"../mixins/save-state":65,"./graph":53,"./grid":54,"lodash":43,"moment":44}],59:[function(require,module,exports){
+},{"../mixins/pusher":65,"../mixins/save-state":66,"./graph":53,"./grid":54,"lodash":43,"moment":44}],60:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45878,13 +45950,13 @@ exports.default = {
     }
 };
 
-},{"../mixins/pusher":64,"../mixins/save-state":65,"./doughnut":50,"./grid":54,"lodash":43,"moment":44}],60:[function(require,module,exports){
+},{"../mixins/pusher":65,"../mixins/save-state":66,"./doughnut":50,"./grid":54,"lodash":43,"moment":44}],61:[function(require,module,exports){
 "use strict";
 
 Chart.defaults.global.legend.display = false;
 Chart.defaults.global.tooltips.enabled = false;
 
-},{}],61:[function(require,module,exports){
+},{}],62:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45972,7 +46044,7 @@ exports.modifyClass = modifyClass;
 exports.relativeDate = relativeDate;
 exports.relativeDateMinutes = relativeDateMinutes;
 
-},{"lodash":43,"moment":44}],62:[function(require,module,exports){
+},{"lodash":43,"moment":44}],63:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -45995,7 +46067,7 @@ var pusherChannel = pusher.subscribe('private-dashboard');
 
 exports.default = pusherChannel;
 
-},{"pusher-js":46}],63:[function(require,module,exports){
+},{"pusher-js":46}],64:[function(require,module,exports){
 'use strict';
 
 var _vue = require('vue');
@@ -46016,7 +46088,7 @@ _vue2.default.filter('grid-from-to', _helpers.gridFromTo);
 
 _vue2.default.filter('modify-class', _helpers.modifyClass);
 
-},{"./helpers":61,"vue":47}],64:[function(require,module,exports){
+},{"./helpers":62,"vue":47}],65:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -46041,7 +46113,7 @@ exports.default = {
     }
 };
 
-},{"../helpers/pusher-channel":62,"lodash":43}],65:[function(require,module,exports){
+},{"../helpers/pusher-channel":63,"lodash":43}],66:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {

@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
         \App\Components\InternetConnectionStatus\SendHeartbeat::class,
         \App\Components\RainForecast\FetchRainForecast::class,
         \App\Components\UptimeRobot\FetchMonitors::class,
+        \App\Components\Qwertee\FetchShirts::class,
     ];
 
     /**
@@ -36,5 +37,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('dashboard:packagist')->hourly();
         $schedule->command('dashboard:rain')->everyMinute();
         $schedule->command('dashboard:uptimerobot')->everyMinute();
+        $schedule->command('dashboard:qwertee')->dailyAt("22:05");
     }
 }

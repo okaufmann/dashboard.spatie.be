@@ -16,7 +16,7 @@
 
     <internet-connection grid="d2"></internet-connection>
 
-    <github-file file-name="freek" grid="a3"></github-file>
+    <qwertee  grid="a3"></qwertee>
 
     <github-file file-name="rogier" grid="b3"></github-file>
 

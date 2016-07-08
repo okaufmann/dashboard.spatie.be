@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Cookie;
+
 class DashboardController extends Controller
 {
     public function index()
