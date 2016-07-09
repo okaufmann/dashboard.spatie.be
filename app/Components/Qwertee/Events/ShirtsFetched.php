@@ -17,23 +17,17 @@ use App\Components\DashboardEvent;
 class ShirtsFetched extends DashboardEvent
 {
     /**
-     * @var
+     * @var array
      */
-    public $detailUrl;
-    /**
-     * @var
-     */
-    public $mensUrl;
+    public $tees;
 
     /**
      * MonitorsFetched constructor.
      *
-     * @param $detailUrl
-     * @param $mensUrl
-s     */
-    public function __construct($detailUrl, $mensUrl)
+     * @param array $tees
+     */
+    public function __construct(array $tees)
     {
-        $this->detailUrl = $detailUrl;
-        $this->mensUrl = $mensUrl;
+        $this->tees = $tees;
     }
 }

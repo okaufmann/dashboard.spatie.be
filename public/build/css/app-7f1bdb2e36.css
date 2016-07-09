@@ -200,6 +200,12 @@ li {
     .grid__tile--red:after {
       background: linear-gradient(to bottom, rgba(232, 49, 52, 0) 0%, #e83134 100%); }
 
+.title {
+  color: #73c7de;
+  font-size: 1.1em;
+  opacity: 1;
+  text-transform: uppercase; }
+
 .current-time__content {
   left: 50%;
   position: absolute;
@@ -462,7 +468,10 @@ li {
     font-size: 12px; }
 
 .img-fullheight {
-  max-height: 50%;
-  display: inline-block; }
+  max-height: 220px;
+  margin: 0 auto; }
+
+.img-slide {
+  width: 100%; }
 
 /*# sourceMappingURL=app.css.map */

@@ -42,28 +42,38 @@ class FetchShirts extends Command
     {
         $feed = Feeds::make('https://www.qwertee.com/rss');
 
-        $items = collect($feed->get_items())->sortBy(function (\SimplePie_Item $item, $key) {
+        $items = collect($feed->get_items())->sortByDesc(function (\SimplePie_Item $item, $key) {
             return $item->get_date();
         });
 
-        /** @var \SimplePie_Item $lastTees */
-        $lastTees = $items->last();
+        $lastTees = $items->take(3);
 
-        $crawler = new Crawler($lastTees->get_content());
-        $imageUrls = $crawler->filter('img')->each(function (Crawler $node, $i) {
-            return $node->attr('src');
+        $imageUrls = $lastTees->map(function (\SimplePie_Item $item) {
+            $crawler = new Crawler($item->get_content());
+            $imageUrls = $crawler->filter('img')->each(function (Crawler $node, $i) {
+                return $node->attr('src');
+            });
+
+            return $imageUrls;
         });
 
-        $imageColl = collect($imageUrls);
+        //$imageColl = $imageUrls->map(function (array $teeUrls) {
+        //    $imageColl = collect($teeUrls);
+        //
+        //    $detailUrl = $imageColl->filter(function (string $src) {
+        //        return str_contains($src, '/zoom/');
+        //    })->first();
+        //
+        //    $mensUrl = $imageColl->filter(function (string $src) {
+        //        return str_contains($src, '/mens/');
+        //    })->first();
+        //
+        //    return [
+        //        'detailUrl' => $detailUrl,
+        //        'mensUrl'   => $mensUrl
+        //    ];
+        //});
 
-        $detailUrl = $imageColl->filter(function (string $src) {
-            return str_contains($src, '/zoom/');
-        })->first();
-
-        $mensUrl = $imageColl->filter(function (string $src) {
-            return str_contains($src, '/mens/');
-        })->first();
-
-        event(new ShirtsFetched($detailUrl, $mensUrl));
+        event(new ShirtsFetched($imageUrls->flatten()->all()));
     }
 }

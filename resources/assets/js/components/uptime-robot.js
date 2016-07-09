@@ -10,7 +10,7 @@ export default {
     template: `
         <grid :position="grid" modifiers="overflow padded blue">
                 <section class="uptime-robot">
-                    <h1>Uptime Monitor</h1>
+                    <h1 class="title">Uptime Monitor</h1>
                     <p class="text-center">Total: {{allTimeUptimeRatio}}%</p>
                     <div class="doughnut">
                         <doughnut
