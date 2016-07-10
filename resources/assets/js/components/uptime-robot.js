@@ -11,19 +11,22 @@ export default {
         <grid :position="grid" modifiers="overflow padded blue">
                 <section class="uptime-robot">
                     <h1 class="title">Uptime Monitor</h1>
-                    <p class="text-center">Total: {{allTimeUptimeRatio}}%</p>
-                    <div class="doughnut">
-                        <doughnut
-                            :labels="doughnutLabels"
-                            :values="doughnutData" ></doughnut>
-                        <div class="donut-inner"><h5>{{monitorsUp}}-{{monitorsDown}}</h5></div>
+
+                    <div class="uptime-robot__content">
+                        <p>Total: {{allTimeUptimeRatio}}%</p>
+                        <div class="doughnut">
+                            <doughnut
+                                :labels="doughnutLabels"
+                                :values="doughnutData" ></doughnut>
+                            <div class="donut-inner"><h5>{{monitorsUp}}-{{monitorsDown}}</h5></div>
+                        </div>
+                        <ul class="uptime-robot__downMonitors">
+                            <li v-for="monitor in monitorsDownData"  class="uptime-robot__downMonitor">
+                                <h2 class="uptime-robot__downMonitor__title">{{ monitor.name }}</h2>
+                                <div class="uptime-robot__downMonitor__since">{{ monitor.downSince | relative-date-minutes }} - {{monitor.allTimeUpTimeRatio}}%</div>
+                            </li>
+                        </ul>
                     </div>
-                    <ul class="uptime-robot__downMonitors">
-                        <li v-for="monitor in monitorsDownData"  class="uptime-robot__downMonitor">
-                            <h2 class="uptime-robot__downMonitor__title">{{ monitor.name }}</h2>
-                            <div class="uptime-robot__downMonitor__since">{{ monitor.downSince | relative-date-minutes }} - {{monitor.allTimeUpTimeRatio}}%</div>
-                        </li>
-                    </ul>
                 </section>
              </grid>
     `,

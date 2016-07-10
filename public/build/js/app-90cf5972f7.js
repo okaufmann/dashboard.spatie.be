@@ -58695,7 +58695,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
 
-    template: '\n        <grid :position="grid" modifiers="overflow padded blue">\n                <section class="uptime-robot">\n                    <h1 class="title">Qwertee</h1>\n                    <div id="img-slider">\n                        <div v-for="teeUrl in teesUrls"><img :src="teeUrl" class="img-fullheight"></div>\n                    </div>\n                </section>\n             </grid>\n    ',
+    template: '\n        <grid :position="grid" modifiers="overflow padded blue">\n                <section class="uptime-robot">\n                    <div id="img-slider">\n                        <div v-for="teeUrl in teesUrls"><img :src="teeUrl" class="img-fullheight"></div>\n                    </div>\n                </section>\n             </grid>\n    ',
 
     components: {
         Grid: _grid2.default
@@ -58729,6 +58729,7 @@ exports.default = {
             return {
                 'App\\Components\\Qwertee\\Events\\ShirtsFetched': function AppComponentsQwerteeEventsShirtsFetched(response) {
                     _this.teesUrls = null;
+                    _this.$set('teesUrls', []);
                     _this.$set('teesUrls', response.tees);
                     _this.initializeSlick(true);
                 }
@@ -58897,7 +58898,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 exports.default = {
 
-    template: '\n        <grid :position="grid" modifiers="overflow padded blue">\n                <section class="uptime-robot">\n                    <h1 class="title">Uptime Monitor</h1>\n                    <p class="text-center">Total: {{allTimeUptimeRatio}}%</p>\n                    <div class="doughnut">\n                        <doughnut\n                            :labels="doughnutLabels"\n                            :values="doughnutData" ></doughnut>\n                        <div class="donut-inner"><h5>{{monitorsUp}}-{{monitorsDown}}</h5></div>\n                    </div>\n                    <ul class="uptime-robot__downMonitors">\n                        <li v-for="monitor in monitorsDownData"  class="uptime-robot__downMonitor">\n                            <h2 class="uptime-robot__downMonitor__title">{{ monitor.name }}</h2>\n                            <div class="uptime-robot__downMonitor__since">{{ monitor.downSince | relative-date-minutes }} - {{monitor.allTimeUpTimeRatio}}%</div>\n                        </li>\n                    </ul>\n                </section>\n             </grid>\n    ',
+    template: '\n        <grid :position="grid" modifiers="overflow padded blue">\n                <section class="uptime-robot">\n                    <h1 class="title">Uptime Monitor</h1>\n\n                    <div class="uptime-robot__content">\n                        <p>Total: {{allTimeUptimeRatio}}%</p>\n                        <div class="doughnut">\n                            <doughnut\n                                :labels="doughnutLabels"\n                                :values="doughnutData" ></doughnut>\n                            <div class="donut-inner"><h5>{{monitorsUp}}-{{monitorsDown}}</h5></div>\n                        </div>\n                        <ul class="uptime-robot__downMonitors">\n                            <li v-for="monitor in monitorsDownData"  class="uptime-robot__downMonitor">\n                                <h2 class="uptime-robot__downMonitor__title">{{ monitor.name }}</h2>\n                                <div class="uptime-robot__downMonitor__since">{{ monitor.downSince | relative-date-minutes }} - {{monitor.allTimeUpTimeRatio}}%</div>\n                            </li>\n                        </ul>\n                    </div>\n                </section>\n             </grid>\n    ',
 
     components: {
         Grid: _grid2.default, Doughnut: _doughnut2.default

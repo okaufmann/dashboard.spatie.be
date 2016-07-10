@@ -446,29 +446,33 @@ li {
 .rain-forecast__title {
   z-index: 3; }
 
-.uptime-robot {
+.uptime-robot .uptime-robot__content {
   text-align: center; }
-  .uptime-robot .doughnut {
-    position: relative;
-    width: 60%;
-    height: 60%;
-    margin: 0 auto; }
-  .uptime-robot .donut-inner {
-    position: absolute;
-    left: 50%;
-    margin-left: -25%;
-    top: 65%;
-    margin-top: -25%;
-    width: 50%;
-    height: 30%; }
-  .uptime-robot .donut-inner h5 {
-    margin-bottom: 5px;
-    margin-top: 0; }
-  .uptime-robot .donut-inner span {
-    font-size: 12px; }
+
+.uptime-robot .doughnut {
+  position: relative;
+  width: 60%;
+  height: 60%;
+  margin: 0 auto; }
+
+.uptime-robot .donut-inner {
+  position: absolute;
+  left: 50%;
+  margin-left: -25%;
+  top: 65%;
+  margin-top: -25%;
+  width: 50%;
+  height: 30%; }
+
+.uptime-robot .donut-inner h5 {
+  margin-bottom: 5px;
+  margin-top: 0; }
+
+.uptime-robot .donut-inner span {
+  font-size: 12px; }
 
 .img-fullheight {
-  max-height: 220px;
+  max-height: 260px;
   margin: 0 auto; }
 
 .img-slide {

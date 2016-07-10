@@ -10,7 +10,6 @@ export default {
     template: `
         <grid :position="grid" modifiers="overflow padded blue">
                 <section class="uptime-robot">
-                    <h1 class="title">Qwertee</h1>
                     <div id="img-slider">
                         <div v-for="teeUrl in teesUrls"><img :src="teeUrl" class="img-fullheight"></div>
                     </div>
@@ -48,6 +47,7 @@ export default {
             return {
                 'App\\Components\\Qwertee\\Events\\ShirtsFetched': response => {
                     this.teesUrls = null;
+                    this.$set('teesUrls', []);
                     this.$set('teesUrls', response.tees);
                     this.initializeSlick(true);
                 },
