@@ -37,6 +37,6 @@ class Kernel extends ConsoleKernel
         $schedule->command('dashboard:packagist')->hourly();
         $schedule->command('dashboard:rain')->everyMinute();
         $schedule->command('dashboard:uptimerobot')->everyMinute();
-        $schedule->command('dashboard:qwertee')->dailyAt("22:05");
+        $schedule->command('dashboard:qwertee')->hourly();
     }
 }
