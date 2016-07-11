@@ -38,6 +38,7 @@ export default {
     created() {
         var self = this;
         $(document).ready(function () {
+            console.log('dom ready detected by qwertee. initialize slick now...');
             self.initializeSlick();
         });
     },
@@ -46,18 +47,24 @@ export default {
         getEventHandlers() {
             return {
                 'App\\Components\\Qwertee\\Events\\ShirtsFetched': response => {
-                    this.teesUrls = null;
-                    this.$set('teesUrls', []);
-                    this.$set('teesUrls', response.tees);
-                    this.initializeSlick(true);
+                    console.log('got new images: ', response);
+                    this.destroySlick();
+                    this.teesUrls = response.tees;
+
+                    let self = this;
+                    setTimeout(function(){
+                        self.initializeSlick();
+                    }, 1000);
                 },
             };
         },
 
-        initializeSlick(reinit = false){
-            if(reinit){
-                $('#img-slider').slick('unslick');
-            }
+        destroySlick(){
+            console.log('destroy slick');
+            $('#img-slider').slick('unslick');
+        },
+        initializeSlick(){
+            console.log('initialize slick');
 
             $('#img-slider').slick({
                 dots: false,

@@ -14,6 +14,7 @@ export default {
 
     methods: {
         loadState() {
+            console.log("load-state for ", this.getSavedStateId());
             let savedState = this.getSavedState();
 
             if (!savedState) {
@@ -23,6 +24,7 @@ export default {
             this.$data = savedState;
         },
         saveState() {
+            console.log("save-state caused by ", this.getSavedStateId());
             localStorage.setItem(this.getSavedStateId(), JSON.stringify(this.$data));
         },
 

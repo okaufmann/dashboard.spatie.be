@@ -58717,6 +58717,7 @@ exports.default = {
     created: function created() {
         var self = this;
         (0, _jquery2.default)(document).ready(function () {
+            console.log('dom ready detected by qwertee. initialize slick now...');
             self.initializeSlick();
         });
     },
@@ -58728,19 +58729,23 @@ exports.default = {
 
             return {
                 'App\\Components\\Qwertee\\Events\\ShirtsFetched': function AppComponentsQwerteeEventsShirtsFetched(response) {
-                    _this.teesUrls = null;
-                    _this.$set('teesUrls', []);
-                    _this.$set('teesUrls', response.tees);
-                    _this.initializeSlick(true);
+                    console.log('got new images: ', response);
+                    _this.destroySlick();
+                    _this.teesUrls = response.tees;
+
+                    var self = _this;
+                    setTimeout(function () {
+                        self.initializeSlick();
+                    }, 1000);
                 }
             };
         },
+        destroySlick: function destroySlick() {
+            console.log('destroy slick');
+            (0, _jquery2.default)('#img-slider').slick('unslick');
+        },
         initializeSlick: function initializeSlick() {
-            var reinit = arguments.length <= 0 || arguments[0] === undefined ? false : arguments[0];
-
-            if (reinit) {
-                (0, _jquery2.default)('#img-slider').slick('unslick');
-            }
+            console.log('initialize slick');
 
             (0, _jquery2.default)('#img-slider').slick({
                 dots: false,
@@ -59123,7 +59128,7 @@ exports.default = {
 };
 
 },{"../helpers/pusher-channel":65,"lodash":44}],68:[function(require,module,exports){
-'use strict';
+"use strict";
 
 Object.defineProperty(exports, "__esModule", {
     value: true
@@ -59146,6 +59151,7 @@ exports.default = {
 
     methods: {
         loadState: function loadState() {
+            console.log("load-state for ", this.getSavedStateId());
             var savedState = this.getSavedState();
 
             if (!savedState) {
@@ -59155,6 +59161,7 @@ exports.default = {
             this.$data = savedState;
         },
         saveState: function saveState() {
+            console.log("save-state caused by ", this.getSavedStateId());
             localStorage.setItem(this.getSavedStateId(), JSON.stringify(this.$data));
         },
         getSavedState: function getSavedState() {

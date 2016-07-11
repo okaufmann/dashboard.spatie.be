@@ -43,12 +43,10 @@ class FetchShirts extends Command
         $feed = Feeds::make('https://www.qwertee.com/rss');
 
         $items = collect($feed->get_items())->sortByDesc(function (\SimplePie_Item $item, $key) {
-            return $item->get_date();
-        });
+            return $item->get_date("Ymd");
+        })->take(3);
 
-        $lastTees = $items->take(3);
-
-        $imageUrls = $lastTees->map(function (\SimplePie_Item $item) {
+        $imageUrls = $items->map(function (\SimplePie_Item $item) {
             $crawler = new Crawler($item->get_content());
             $imageUrls = $crawler->filter('img')->each(function (Crawler $node, $i) {
                 return $node->attr('src');
@@ -56,23 +54,6 @@ class FetchShirts extends Command
 
             return $imageUrls;
         });
-
-        //$imageColl = $imageUrls->map(function (array $teeUrls) {
-        //    $imageColl = collect($teeUrls);
-        //
-        //    $detailUrl = $imageColl->filter(function (string $src) {
-        //        return str_contains($src, '/zoom/');
-        //    })->first();
-        //
-        //    $mensUrl = $imageColl->filter(function (string $src) {
-        //        return str_contains($src, '/mens/');
-        //    })->first();
-        //
-        //    return [
-        //        'detailUrl' => $detailUrl,
-        //        'mensUrl'   => $mensUrl
-        //    ];
-        //});
 
         event(new ShirtsFetched($imageUrls->flatten()->all()));
     }
