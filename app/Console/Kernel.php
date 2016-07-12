@@ -38,6 +38,11 @@ class Kernel extends ConsoleKernel
         $schedule->command('dashboard:rain')->everyMinute();
         $schedule->command('dashboard:uptimerobot')->everyMinute();
         $schedule->command('dashboard:qwertee')
-            ->dailyAt("22:05");
+            ->everyThirtyMinutes()
+            ->timezone('Europe/Zurich')
+            ->when(function () {
+                $hour = date('H');
+                return ($hour >= 22 && $hour <= 23) || $hour = 0;
+            });
     }
 }
