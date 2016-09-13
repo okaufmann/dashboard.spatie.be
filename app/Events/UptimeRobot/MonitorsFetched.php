@@ -9,10 +9,9 @@
  * @package YOUREOACKAGE
  */
 
-namespace App\Components\UptimeRobot\Events;
+namespace App\Events\UptimeRobot;
 
-
-use App\Components\DashboardEvent;
+use App\Events\DashboardEvent;
 
 class MonitorsFetched extends DashboardEvent
 {

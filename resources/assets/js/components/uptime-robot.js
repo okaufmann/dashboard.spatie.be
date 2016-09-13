@@ -1,7 +1,7 @@
 import Grid from './grid';
 import moment from 'moment';
 import _ from 'lodash';
-import Pusher from '../mixins/pusher';
+import Echo from '../mixins/echo';
 import SaveState from '../mixins/save-state';
 import Doughnut from './doughnut';
 
@@ -35,7 +35,7 @@ export default {
         Grid, Doughnut
     },
 
-    mixins: [Pusher, SaveState],
+    mixins: [Echo, SaveState],
 
     props: {
         dateformat: {
@@ -76,7 +76,7 @@ export default {
     methods: {
         getEventHandlers() {
             return {
-                'App\\Components\\UptimeRobot\\Events\\MonitorsFetched': response => {
+                'UptimeRobot.MonitorsFetched': response => {
                     this.allTimeUptimeRatio = _.round(response.allTimeUptimeRatio, 3);
                     this.monitorsUp = response.monitorsUp;
                     this.monitorsDown = response.monitorsDown;

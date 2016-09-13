@@ -1,7 +1,7 @@
 import Grid from './grid';
 import _ from 'lodash';
 import $ from 'jquery';
-import Pusher from '../mixins/pusher';
+import Echo from '../mixins/echo';
 import SaveState from '../mixins/save-state';
 import * as slick from 'slick-carousel';
 
@@ -21,7 +21,7 @@ export default {
         Grid
     },
 
-    mixins: [Pusher, SaveState],
+    mixins: [Echo, SaveState],
 
     props: {
         grid: {
@@ -46,8 +46,8 @@ export default {
     methods: {
         getEventHandlers() {
             return {
-                'App\\Components\\Qwertee\\Events\\ShirtsFetched': response => {
-                    console.log('got new images: ', response);
+                'Qwertee.ShirtsFetched': response => {
+                    //console.log('got new images: ', response);
                     this.destroySlick();
                     this.teesUrls = response.tees;
 
@@ -60,11 +60,11 @@ export default {
         },
 
         destroySlick(){
-            console.log('destroy slick');
+            //console.log('destroy slick');
             $('#img-slider').slick('unslick');
         },
         initializeSlick(){
-            console.log('initialize slick');
+            //console.log('initialize slick');
 
             $('#img-slider').slick({
                 dots: false,

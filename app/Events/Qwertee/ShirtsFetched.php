@@ -9,10 +9,9 @@
  * @package YOUREOACKAGE
  */
 
-namespace App\Components\Qwertee\Events;
+namespace App\Events\Qwertee;
 
-
-use App\Components\DashboardEvent;
+use App\Events\DashboardEvent;
 
 class ShirtsFetched extends DashboardEvent
 {

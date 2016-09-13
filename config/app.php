@@ -170,15 +170,12 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Spatie\Tail\TailServiceProvider::class,
-        // cause problems with emphaty browser on raspberry pi one Model B
-        //Olssonm\VeryBasicAuth\VeryBasicAuthServiceProvider::class,
         Spatie\GoogleCalendar\GoogleCalendarServiceProvider::class,
         GrahamCampbell\GitHub\GitHubServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
         \App\Providers\CollectionServiceProvider::class,
         \Spatie\BladeJavaScript\BladeJavaScriptServiceProvider::class,
         \Okaufmann\UptimeRobot\UptimeRobotServiceProvider::class,
-        willvincent\Feeds\FeedsServiceProvider::class,
     ],
 
     /*
@@ -227,7 +224,6 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'GoogleCalendar' => Spatie\GoogleCalendar\GoogleCalendarFacade::class,
         'GitHub' => GrahamCampbell\GitHub\Facades\GitHub::class,
-        'Feeds' => willvincent\Feeds\Facades\FeedsFacade::class,
     ],
 
 ];
