@@ -11,12 +11,11 @@
 
 namespace App\Components\UptimeRobot;
 
-
-use App\Components\UptimeRobot\Events\MonitorsFetched;
+use App;
+use App\Events\UptimeRobot\MonitorsFetched;
 use Cache;
 use Illuminate\Console\Command;
 use Okaufmann\UptimeRobot\Client;
-use App;
 use Okaufmann\UptimeRobot\Models\Log;
 use Okaufmann\UptimeRobot\Models\Monitor;
 use Okaufmann\UptimeRobot\Models\Queries\MonitorsQuery;

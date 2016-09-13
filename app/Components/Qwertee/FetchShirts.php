@@ -12,10 +12,10 @@
 namespace App\Components\Qwertee;
 
 
-use App\Components\Qwertee\Events\ShirtsFetched;
-use Feeds;
+use App\Events\Qwertee\ShirtsFetched;
 use Illuminate\Console\Command;
-use Symfony\Component\DomCrawler\Crawler;
+use Illuminate\Support\Collection;
+use Okaufmann\Qwertee\Qwertee;
 
 class FetchShirts extends Command
 {
@@ -40,19 +40,11 @@ class FetchShirts extends Command
      */
     public function handle()
     {
-        $feed = Feeds::make('https://www.qwertee.com/rss');
+        $tees = Qwertee::today();
 
-        $items = collect($feed->get_items())->sortByDesc(function (\SimplePie_Item $item, $key) {
-            return $item->get_date("Ymd");
-        })->take(3);
+        $imageUrls = $tees->map(function (Collection $tee) {
 
-        $imageUrls = $items->map(function (\SimplePie_Item $item) {
-            $crawler = new Crawler($item->get_content());
-            $imageUrls = $crawler->filter('img')->each(function (Crawler $node, $i) {
-                return $node->attr('src');
-            });
-
-            return $imageUrls;
+            return $tee['mens'];
         });
 
         event(new ShirtsFetched($imageUrls->flatten()->all()));
