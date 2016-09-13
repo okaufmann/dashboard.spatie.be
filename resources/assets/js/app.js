@@ -1,5 +1,6 @@
 import './helpers/vue-filters';
 import CurrentTime from './components/current-time';
+import Echo from 'laravel-echo';
 import GithubFile from './components/github-file';
 import GoogleCalendar from './components/google-calendar';
 import InternetConnection from './components/internet-connection';
@@ -10,6 +11,11 @@ import RainForecast from './components/rain-forecast';
 import UptimeRobot from './components/uptime-robot';
 import Qwertee from './components/qwertee';
 import Vue from 'vue';
+
+window.Echo = new Echo({
+    broadcaster: 'pusher',
+    key: dashboard.pusherKey,
+});
 
 moment.locale('en', {
     calendar: {
