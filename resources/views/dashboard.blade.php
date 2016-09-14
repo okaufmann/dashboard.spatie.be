@@ -4,7 +4,7 @@
 
     @javascript(compact('pusherKey', 'pusherCluster','pusherEncrypted'))
 
-    <uptime-robot grid="a1:a2"></uptime-robot>
+    <google-calendar grid="a1:a2"></google-calendar>
 
     <last-fm grid="b1:c1"></last-fm>
 
@@ -12,7 +12,7 @@
 
     <packagist-statistics grid="b2"></packagist-statistics>
 
-    <rain-forecast grid="c2"></rain-forecast>
+    <rain-forecast grid="d3"></rain-forecast>
 
     <internet-connection grid="d2"></internet-connection>
 
@@ -20,8 +20,7 @@
 
     <github-file file-name="rogier" grid="b3"></github-file>
 
-    <github-file file-name="seb" grid="c3"></github-file>
+    <uptime-robot grid="c2:c3"></uptime-robot>
 
-    <github-file file-name="willem" grid="d3"></github-file>
 
 @endsection
