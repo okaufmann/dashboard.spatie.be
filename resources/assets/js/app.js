@@ -8,6 +8,7 @@ import LastFm from './components/last-fm';
 import moment from 'moment';
 import PackagistStatistics from './components/packagist-statistics';
 import RainForecast from './components/rain-forecast';
+import RlsNotifier from './components/rls-notifier';
 import UptimeRobot from './components/uptime-robot';
 import Qwertee from './components/qwertee';
 import Vue from 'vue';
@@ -40,6 +41,7 @@ new Vue({
         LastFm,
         PackagistStatistics,
         RainForecast,
+        RlsNotifier,
         UptimeRobot,
         Qwertee
     },

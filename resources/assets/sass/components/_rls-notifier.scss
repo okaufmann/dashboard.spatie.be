@@ -1,0 +1,24 @@
+.rls-notifier {
+    @include clearfix;
+    @include mod(total) {
+        font-size: setting($font-size, m);
+    }
+}
+
+.rls-notifier__period {
+    @include font-sans;
+
+    float: left;
+    font-size: setting($font-size, s);
+    opacity: .5;
+    text-transform: uppercase;
+    top: .1em;
+}
+
+.rls-notifier__count {
+    @include font-sans-black;
+
+    color: color($yellow);
+    float: right;
+    vertical-align: top;
+}

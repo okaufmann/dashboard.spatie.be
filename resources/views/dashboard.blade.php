@@ -18,7 +18,7 @@
 
     <qwertee  grid="a3"></qwertee>
 
-    <github-file file-name="rogier" grid="b3"></github-file>
+    <rls-notifier grid="b3"></rls-notifier>
 
     <uptime-robot grid="c2:c3"></uptime-robot>
 

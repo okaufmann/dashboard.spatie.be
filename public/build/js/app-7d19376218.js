@@ -59318,6 +59318,10 @@ var _rainForecast = require('./components/rain-forecast');
 
 var _rainForecast2 = _interopRequireDefault(_rainForecast);
 
+var _rlsNotifier = require('./components/rls-notifier');
+
+var _rlsNotifier2 = _interopRequireDefault(_rlsNotifier);
+
 var _uptimeRobot = require('./components/uptime-robot');
 
 var _uptimeRobot2 = _interopRequireDefault(_uptimeRobot);
@@ -59360,13 +59364,14 @@ new _vue2.default({
         LastFm: _lastFm2.default,
         PackagistStatistics: _packagistStatistics2.default,
         RainForecast: _rainForecast2.default,
+        RlsNotifier: _rlsNotifier2.default,
         UptimeRobot: _uptimeRobot2.default,
         Qwertee: _qwertee2.default
     }
 
 });
 
-},{"./components/current-time":53,"./components/github-file":55,"./components/google-calendar":56,"./components/internet-connection":59,"./components/last-fm":60,"./components/packagist-statistics":61,"./components/qwertee":62,"./components/rain-forecast":63,"./components/uptime-robot":64,"./helpers/vue-filters":67,"laravel-echo":45,"moment":47,"vue":51}],53:[function(require,module,exports){
+},{"./components/current-time":53,"./components/github-file":55,"./components/google-calendar":56,"./components/internet-connection":59,"./components/last-fm":60,"./components/packagist-statistics":61,"./components/qwertee":62,"./components/rain-forecast":63,"./components/rls-notifier":64,"./components/uptime-robot":65,"./helpers/vue-filters":68,"laravel-echo":45,"moment":47,"vue":51}],53:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -59493,7 +59498,7 @@ exports.default = {
     }
 };
 
-},{"../helpers/global-chart-options":65,"chart.js":1}],55:[function(require,module,exports){
+},{"../helpers/global-chart-options":66,"chart.js":1}],55:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -59550,7 +59555,7 @@ exports.default = {
     }
 };
 
-},{"../mixins/echo":68,"../mixins/save-state":69,"./grid":58}],56:[function(require,module,exports){
+},{"../mixins/echo":69,"../mixins/save-state":70,"./grid":58}],56:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -59606,7 +59611,7 @@ exports.default = {
     }
 };
 
-},{"../mixins/echo":68,"../mixins/save-state":69,"./grid":58}],57:[function(require,module,exports){
+},{"../mixins/echo":69,"../mixins/save-state":70,"./grid":58}],57:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -59679,7 +59684,7 @@ exports.default = {
     }
 };
 
-},{"../helpers/global-chart-options":65,"chart.js":1}],58:[function(require,module,exports){
+},{"../helpers/global-chart-options":66,"chart.js":1}],58:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -59754,7 +59759,7 @@ exports.default = {
     }
 };
 
-},{"../mixins/echo":68,"./grid":58,"moment":47}],60:[function(require,module,exports){
+},{"../mixins/echo":69,"./grid":58,"moment":47}],60:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -59828,7 +59833,7 @@ exports.default = {
     }
 };
 
-},{"../mixins/echo":68,"../mixins/save-state":69,"./grid":58}],61:[function(require,module,exports){
+},{"../mixins/echo":69,"../mixins/save-state":70,"./grid":58}],61:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -59866,7 +59871,7 @@ exports.default = {
             stars: 0,
             daily: 0,
             monthly: 0,
-            total: 0
+            releases: 0
         };
     },
 
@@ -59880,7 +59885,7 @@ exports.default = {
                     _this.stars = response.stars;
                     _this.daily = response.daily;
                     _this.monthly = response.monthly;
-                    _this.total = response.total;
+                    _this.releases = response.releases;
                 }
             };
         },
@@ -59890,7 +59895,7 @@ exports.default = {
     }
 };
 
-},{"../mixins/echo":68,"../mixins/save-state":69,"./grid":58}],62:[function(require,module,exports){
+},{"../mixins/echo":69,"../mixins/save-state":70,"./grid":58}],62:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -59994,7 +59999,7 @@ exports.default = {
     }
 };
 
-},{"../mixins/echo":68,"../mixins/save-state":69,"./grid":58,"jquery":44,"lodash":46,"slick-carousel":50}],63:[function(require,module,exports){
+},{"../mixins/echo":69,"../mixins/save-state":70,"./grid":58,"jquery":44,"lodash":46,"slick-carousel":50}],63:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -60092,7 +60097,71 @@ exports.default = {
     }
 };
 
-},{"../mixins/echo":68,"./graph":57,"./grid":58,"lodash":46}],64:[function(require,module,exports){
+},{"../mixins/echo":69,"./graph":57,"./grid":58,"lodash":46}],64:[function(require,module,exports){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _echo = require('../mixins/echo');
+
+var _echo2 = _interopRequireDefault(_echo);
+
+var _grid = require('./grid');
+
+var _grid2 = _interopRequireDefault(_grid);
+
+var _saveState = require('../mixins/save-state');
+
+var _saveState2 = _interopRequireDefault(_saveState);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+
+    template: '\n        <grid :position="grid" modifiers="padded overflow">\n            <section class="rls-notifier-statistics">\n                <h1>Package Downloads</h1>\n                <ul>\n                    <li class="rls-notifier">\n                        <span class="rls-notifier__period">Today</span>\n                        <span class="rls-notifier__count">{{ newToday | format-number }}</span>\n                    </li>\n                    <li class="rls-notifier">\n                        <h2 class="rls-notifier__period">AVG per Day</h2>\n                        <span class="rls-notifier__count">{{ perDayAvg | format-number }}</span>\n                    </li>\n                    <li class="rls-notifier">\n                        <h2 class="rls-notifier__period">Releases</h2>\n                        <span class="rls-notifier__count">{{ releases | format-number }}</span>\n                    </li>\n                    <li class="rls-notifier -total">\n                        <h2 class="rls-notifier__period">Links</h2>\n                        <span class="rls-notifier__count">{{ links | format-number }}</span>\n                    </li>\n                </ul>\n            </section>\n        </grid>\n    ',
+
+    components: {
+        Grid: _grid2.default
+    },
+
+    mixins: [_echo2.default, _saveState2.default],
+
+    props: ['grid'],
+
+    data: function data() {
+        return {
+            newToday: 0,
+            links: 0,
+            releases: 0,
+            perDayAvg: 0
+        };
+    },
+
+
+    methods: {
+        getEventHandlers: function getEventHandlers() {
+            var _this = this;
+
+            return {
+                'RlsNotifier.StatisticsFetched': function RlsNotifierStatisticsFetched(response) {
+                    var statistics = response.statistics;
+                    console.log(statistics);
+                    _this.newToday = statistics.new_today;
+                    _this.releases = statistics.total_releases;
+                    _this.links = statistics.total_links;
+                    _this.perDayAvg = statistics.avg_per_day;
+                }
+            };
+        },
+        getSavedStateId: function getSavedStateId() {
+            return 'rls-notifier';
+        }
+    }
+};
+
+},{"../mixins/echo":69,"../mixins/save-state":70,"./grid":58}],65:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -60188,13 +60257,13 @@ exports.default = {
     }
 };
 
-},{"../mixins/echo":68,"../mixins/save-state":69,"./doughnut":54,"./grid":58,"lodash":46,"moment":47}],65:[function(require,module,exports){
+},{"../mixins/echo":69,"../mixins/save-state":70,"./doughnut":54,"./grid":58,"lodash":46,"moment":47}],66:[function(require,module,exports){
 "use strict";
 
 Chart.defaults.global.legend.display = false;
 Chart.defaults.global.tooltips.enabled = false;
 
-},{}],66:[function(require,module,exports){
+},{}],67:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -60282,7 +60351,7 @@ exports.modifyClass = modifyClass;
 exports.relativeDate = relativeDate;
 exports.relativeDateMinutes = relativeDateMinutes;
 
-},{"lodash":46,"moment":47}],67:[function(require,module,exports){
+},{"lodash":46,"moment":47}],68:[function(require,module,exports){
 'use strict';
 
 var _vue = require('vue');
@@ -60303,7 +60372,7 @@ _vue2.default.filter('grid-from-to', _helpers.gridFromTo);
 
 _vue2.default.filter('modify-class', _helpers.modifyClass);
 
-},{"./helpers":66,"vue":51}],68:[function(require,module,exports){
+},{"./helpers":67,"vue":51}],69:[function(require,module,exports){
 'use strict';
 
 Object.defineProperty(exports, "__esModule", {
@@ -60326,7 +60395,7 @@ exports.default = {
     }
 };
 
-},{"lodash":46}],69:[function(require,module,exports){
+},{"lodash":46}],70:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

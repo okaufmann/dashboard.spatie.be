@@ -20,6 +20,7 @@ class Kernel extends ConsoleKernel
         \App\Components\InternetConnectionStatus\SendHeartbeat::class,
         \App\Components\RainForecast\FetchRainForecast::class,
         \App\Components\UptimeRobot\FetchMonitors::class,
+        \App\Components\RlsNotifier\FetchStats::class,
         \App\Components\Qwertee\FetchShirts::class,
     ];
 

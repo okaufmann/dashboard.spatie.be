@@ -43,7 +43,7 @@ export default {
             stars: 0,
             daily: 0,
             monthly: 0,
-            total: 0,
+            releases: 0,
         };
     },
 
@@ -54,7 +54,7 @@ export default {
                     this.stars = response.stars;
                     this.daily = response.daily;
                     this.monthly = response.monthly;
-                    this.total = response.total;
+                    this.releases = response.releases;
                 },
             };
         },

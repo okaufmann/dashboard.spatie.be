@@ -446,6 +446,34 @@ li {
 .rain-forecast__title {
   z-index: 3; }
 
+.rls-notifier {
+  zoom: 1; }
+  .rls-notifier:before, .rls-notifier:after {
+    content: '';
+    display: table; }
+  .rls-notifier:after {
+    clear: both; }
+  .rls-notifier--total {
+    font-size: 1.1em; }
+
+.rls-notifier__period {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  float: left;
+  font-size: 0.9em;
+  opacity: .5;
+  text-transform: uppercase;
+  top: .1em; }
+
+.rls-notifier__count {
+  font-family: 'Source Sans Pro', sans-serif;
+  font-style: normal;
+  font-weight: 900;
+  color: #fbbd1a;
+  float: right;
+  vertical-align: top; }
+
 .uptime-robot .uptime-robot__content {
   text-align: center; }
 

@@ -30,9 +30,14 @@ return [
     ],
 
     'stripe' => [
-        'model' => App\User::class,
+        'model' => App\Models\User::class,
         'key' => env('STRIPE_KEY'),
         'secret' => env('STRIPE_SECRET'),
     ],
+
+    'rls-notifier' => [
+        'key' => env('RLSNOTIFIER_KEY'),
+        'host' => env('RLSNOTIFIER_HOST')
+    ]
 
 ];
