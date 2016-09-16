@@ -32,7 +32,8 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         $schedule->command('dashboard:lastfm')->everyMinute();
-        //$schedule->command('dashboard:calendar')->everyFiveMinutes();
+        $schedule->command('dashboard:calendar')->everyFiveMinutes();
+        $schedule->command('dashboard:rls-notifier')->hourly();
         //$schedule->command('dashboard:github')->everyFiveMinutes();
         $schedule->command('dashboard:heartbeat')->everyMinute();
         $schedule->command('dashboard:packagist')->hourly();
