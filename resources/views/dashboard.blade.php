@@ -16,7 +16,7 @@
 
     <internet-connection grid="d2"></internet-connection>
 
-    <qwertee  grid="a3"></qwertee>
+    <qwertee grid="a3"></qwertee>
 
     <rls-notifier grid="b3"></rls-notifier>
 

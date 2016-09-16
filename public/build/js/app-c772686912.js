@@ -59338,7 +59338,9 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 window.Echo = new _laravelEcho2.default({
     broadcaster: 'pusher',
-    key: dashboard.pusherKey
+    key: dashboard.pusherKey,
+    cluster: 'eu',
+    encrypted: true
 });
 
 _moment2.default.locale('en', {

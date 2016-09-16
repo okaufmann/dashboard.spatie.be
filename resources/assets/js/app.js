@@ -16,6 +16,8 @@ import Vue from 'vue';
 window.Echo = new Echo({
     broadcaster: 'pusher',
     key: dashboard.pusherKey,
+    cluster: dashboard.pusherCluster,
+    encrypted: dashboard.pusherEncrypted
 });
 
 moment.locale('en', {
